@@ -1,20 +1,19 @@
 require "google_map_directions/version"
 require "open-uri"
-require "nokogiri"
+require "json"
 
 module GoogleMapDirections
-  class GoogleMapDirections
+  class Directions
 
     attr_accessor :origin, :destination, :sensor
-    attr_accessible :xml, :json
-    @@base_google_url = 'http://maps.googleapis.com/maps/api/directions/xml?'
+    attr_reader :json
+    @@base_google_url = 'http://maps.googleapis.com/maps/api/directions/json?'
 
-    def initialize(origin, destination, sensor = false, optional)      
+    def initialize(origin, destination, sensor = false)      
       @origin = origin.gsub(/\s/,'+')
       @destination = destination.gsub(/\s/,'+')
-      @sensor = sensor
-      url = "#{@@base_google_url}origin=#{@origin}&destination=#{@destination}@sensor=#{@sensor}"
-      @xml = Nokogiri::XML(open(url))
+      @sensor = sensor.to_s
+      url = "#{@@base_google_url}&origin=#{@origin}&destination=#{@destination}&sensor=#{@sensor}"
       @json = JSON.parse(open(url).read)
     end
 

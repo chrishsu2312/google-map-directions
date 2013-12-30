@@ -1,5 +1,5 @@
-module GoogleMapDirections
-  class Path
 
-  end
+class Path
+
 end
+
