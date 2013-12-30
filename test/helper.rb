@@ -1,2 +1,3 @@
 require 'google_map_directions'
-require 'rspec'
+require 'minitest/spec'
+require 'minitest/autorun'

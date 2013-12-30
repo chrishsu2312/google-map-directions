@@ -14,7 +14,11 @@ describe GoogleMapDirections do
   end
 
   it 'should have success code of OK' do
-    @test.status.should eq('OK')
+    @test.status.must_equal('OK')
+  end
+
+  it 'should have success code of OK' do
+    @test.status.must_equal('OK')
   end
   
 

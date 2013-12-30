@@ -1,4 +1,5 @@
 require "google_map_directions/version"
+require "google_map_directions/path"
 require "open-uri"
 require "json"
 
@@ -15,59 +16,66 @@ module GoogleMapDirections
       @sensor = sensor.to_s
       url = "#{@@base_google_url}&origin=#{@origin}&destination=#{@destination}&sensor=#{@sensor}"
       @json = JSON.parse(open(url).read)
+      @legs = (status_check ? @json["routes"][0]["legs"][0] : nil)
+      @paths = nil
+      set_up_paths
     end
 
     def status
       return @json["status"]      
-    end
+    end 
 
     def distance_as_string
-      status_check
-      return @json["routes"][0]["legs"][0]["distance"]["text"]
+      if status_check then return @legs["distance"]["text"] else return nil end
     end
 
     def distance_in_meters
-      status_check
-      return @json["routes"][0]["legs"][0]["distance"]["value"]
+      if status_check then return @legs["distance"]["value"] else return nil end
     end
 
     def destination_coordinates
-      status_check
-      return @json["routes"][0]["legs"][0]['end_location']
+      if status_check then return @legs['end_location'] else return nil end
     end
 
     def origin_address
-      status_check
-      return @json["routes"][0]["legs"][0]['start_address']
+      if status_check then return @legs['start_address'] else return nil end
     end
-    
+
     def destination_address
-      status_check
-      return @json["routes"][0]["legs"][0]['end_address']
+      if status_check then return @legs['end_address'] else return nil end
     end
 
     def origin_coordinates
-      status_check
-      return @json["routes"][0]["legs"][0]['start_location']
+      if status_check then return @legs['start_location'] else return nil end
+    end
+
+
+    def duration_as_string
+      if status_check then return @legs['duration']['text'] else return nil end    
+    end
+
+    def duration_in_minutes
+      if status_check then return @legs['duration']["value"] else return nil end   
+    end
+
+    private
+    def status_check
+      if status != 'OK'
+        return false
+      else
+        return true
+      end
+    end
+
+    def set_up_paths
+      if status_check
+        @path = Array.new(@legs["steps"].length)
+        count = 0
+        @legs["steps"].each do |segment|
+          @path[count] = GoogleMapDirections::Path.new(segment["distance"], segment["duration"], segment["end_location"], segment["start_location"], count, segment["html_instructions"])
+          count = count + 1
+        end
+      end
     end
   end
-
-  def duration_as_string
-    status_check
-    return @json["routes"][0]["legs"][0]['start_location']
-  end
-
-  def duration_in_minutes
-    status_check
-    return @json["routes"][0]["legs"][0]['duration']["value"]      
-  end
-
-  private
-
-  def status_check
-    if status != 'OK'
-      return nil
-    end
-  end
-
 end
