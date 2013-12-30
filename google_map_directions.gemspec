@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["chris_h2312@yahoo.com"]
   spec.description   = %q{A wrapper gem for the google directions API}
   spec.summary       = %q{I'll update this once I have some working code.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/chrishsu2312/google-map-directions"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
