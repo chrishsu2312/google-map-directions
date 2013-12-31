@@ -71,11 +71,7 @@ module GoogleMapDirections
 
     private
     def status_check
-      if status != 'OK'
-        return false
-      else
-        return true
-      end
+      status == 'OK'
     end
 
     def set_up_paths
