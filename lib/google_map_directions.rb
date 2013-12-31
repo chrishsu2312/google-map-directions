@@ -28,44 +28,44 @@ module GoogleMapDirections
     end 
 
     def distance_as_string
-      if status_check then return @legs["distance"]["text"] else return nil end
+      return @legs["distance"]["text"] unless !status_check
     end
 
     def distance_in_meters
-      if status_check then return @legs["distance"]["value"] else return nil end
+      return @legs["distance"]["value"] unless !status_check
     end
 
     def destination_coordinates
-      if status_check then return @legs['end_location'] else return nil end
+      return @legs['end_location'] unless !status_check
     end
 
     def origin_address
-      if status_check then return @legs['start_address'] else return nil end
+      return @legs['start_address'] unless !status_check
     end
 
     def destination_address
-      if status_check then return @legs['end_address'] else return nil end
+      return @legs['end_address'] unless !status_check
     end
 
     def origin_coordinates
-      if status_check then return @legs['start_location'] else return nil end
+      return @legs['start_location'] unless !status_check
     end
 
 
     def duration_as_string
-      if status_check then return @legs['duration']['text'] else return nil end    
+      return @legs['duration']['text'] unless !status_check    
     end
 
     def duration_in_seconds
-      if status_check then return @legs['duration']["value"] else return nil end   
+      return @legs['duration']["value"] unless !status_check   
     end
 
     def path_length
-      if status_check then return @path.length else return nil end
+      return @path.length unless !status_check
     end
 
     def step(number)
-      if status_check then return @path[number] else return nil end
+      return @path[number] unless !status_check
     end
 
 
