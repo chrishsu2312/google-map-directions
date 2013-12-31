@@ -13,6 +13,10 @@ describe GoogleMapDirections do
     it 'should have success code of OK' do
       @test.status.should == 'OK'
     end
+    it 'should return a json object representing the reply from the api' do
+      @test.json.should_not == nil
+    end
+
   end
 
   describe "possible bad statuses" do
@@ -62,7 +66,7 @@ describe GoogleMapDirections do
       @happy_path.duration_as_string.should == "55 mins"
     end
     it 'should correctly give the duration of the trip in minutes' do 
-      @happy_path.duration_in_minutes.should == 3322
+      @happy_path.duration_in_seconds.should == 3322
     end
     it 'should correctly give distances as a string for a bad reply' do
       @sad_path.distance_as_string.should == nil
@@ -87,11 +91,7 @@ describe GoogleMapDirections do
       @sad_path.duration_as_string.should == nil
     end
     it 'should correctly give the duration of the trip in minutes for a bad reply' do 
-      @sad_path.duration_in_minutes.should == nil
-    end
+      @sad_path.duration_in_seconds.should == nil
+    end    
   end
-
-
-
-
 end
