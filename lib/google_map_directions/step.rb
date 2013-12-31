@@ -24,4 +24,5 @@ module GoogleMapDirections
       return @duration["value"]
     end
   end
+
 end
