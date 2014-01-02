@@ -5,7 +5,7 @@ require "json"
 
 module GoogleMapDirections
   class Directions
-    attr_accessor :origin, :destination, :sensor, :json, :paths
+    attr_accessor :origin, :destination, :sensor, :json, :path
     @@base_google_url = 'http://maps.googleapis.com/maps/api/directions/json?'
 
     def initialize(origin, destination, sensor=false)      
