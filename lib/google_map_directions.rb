@@ -5,15 +5,32 @@ require "json"
 
 module GoogleMapDirections
   class Directions
+
     attr_accessor :origin, :destination, :sensor, :json, :path
     @@base_google_url = 'http://maps.googleapis.com/maps/api/directions/json?'
+    @@params = {
+      :mode => nil,
+      :waypoints => nil,
+      :alternatives => nil,
+      :avoid => nil,
+      :language => nil,
+      :units => nil,
+      :region => nil,
+      :departure_time => nil,
+      :arrival_time => nil
+    }
 
-    def initialize(origin, destination, sensor=false)      
+    def initialize(origin, destination, sensor=false, additional_params=@@params)      
       @origin = origin
       @destination = destination
       @sensor = sensor
       url = "#{@@base_google_url}&origin=#{@origin.gsub(/\s/,'+')}&destination=#{@destination.gsub(/\s/,'+')}&sensor=#{@sensor.to_s}"
       @json = JSON.parse(open(url).read)
+      additional_params.keys.each do |extra|
+        if additional_params[extra] != nil 
+          url << "@#{additional_params[extra].gsub(/\s/,'+')}"
+        end
+      end
       if status_check
         @legs = @json["routes"][0]["legs"][0]
         set_up_paths
