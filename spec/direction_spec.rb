@@ -60,7 +60,6 @@ describe GoogleMapDirections do
     end
     it 'should correctly give the address of the origin' do
       @happy_path.destination_address.should == "1600 Amphitheatre Parkway, Mountain View, CA 94043, USA"
-
     end 
     it 'should correctly give the duration of the trip as a string' do 
       @happy_path.duration_as_string.should == "55 mins"
@@ -68,6 +67,11 @@ describe GoogleMapDirections do
     it 'should correctly give the duration of the trip in minutes' do 
       @happy_path.duration_in_seconds.should == 3322
     end
+
+    it 'should correctly give the polyline' do
+      @happy_path.polyline.should == "ggcfF~peiVxC`d@|A`UBZ|AKlEUdLq@tHc@lEUlCKpBP\\@xAIbAWfBQjEUzGe@|YoBrXkBnr@{EdAGzD[jAKDl@Fx@e@`CAXBn@Rh@XX`@H~BKrBBnLxAhAPjCn@pKdBfIjAxBRjDI|AHhDP|JfB|Ch@fEt@zWpEbFbAhBj@tBf@dB`@nCr@bBh@nBbAdE`DvCfDhAtARVtD~DlBdBlEnC\\T`CzAjKfGrEdCdKjFjCdAzD^|@ClB]|CyAx@s@|@cAlAwBtB_HfAeEfCkJdB{GNeA`AgDlDsLhCwI`@sA|BgGzAqCp@aApJiMpAcBrCsDvBiEj@}AjAkFrDs`@j@eErBiKbEyOhC}HhM}YzD_HvB_CfBmA~BcAlMiD|CeAfCyA`DgCrAyA~A}B~@_B|AoDtA_FlF}TtIk^t@qBnAaCfBcChBkBdHeFfJgGfGqE|KwJxPuNdTuQvVaTxE_EjVmS~N{LpOoMnRcPjHkGhPeNxN{LbJwHhRyOnNoLvE_ExN{NxQ_RdBiB|Zg[dDwDxByC`KePh[yg@ps@ckAfw@qpAtO{VRc@~FcJxXkd@hQsYrD}GpBqDzHoLlHkLrCcEfCoCdDyCdD{BjGeD~P_JbiAam@xVwMxHmEzLyHzRaMjTkNdu@ue@t~@ol@`~Ec~CpIcFzGyChE{ArMgDhTgFzRwEvDiArEmBvGyDdDeCzCsC|AeBtEeFd@KBCvAoA|DeDp@U~@IdDGhBFlB\\jBz@jCbBr@b@nDnCbDnChEfEfGrH~BlDbFzInOjZpHjLbBfChJfMn_@dj@|S`[hH~J~ErHjCvGlDjJv@rB|CtKjAbG|@rIvDdd@lA~HdAtEbBvFtD~InDbGfN|Pt[b`@zFlFrd@xYdIvFtF|EbJxJ|GjJjLxR|KpRxYtf@nEpHnBzCpGvI`E`FlIpIbIzIhKvLhc@dg@~KtMbBhCl@lA~@dCbAjEl@jFFjB@f@b@EbABTB`Df@rE|AjWhKvUpJbB`@xF?bA?hEf@fBVLPNLL\\Fd@Kj@OV]PW?[MSUK}@@QPaArAoC|MoX~GmNnQm^nTqc@p[qo@hFqK~ByDrB_DfGeH|EeFdKyKfh@ij@vkAmoAvMqNzFiHjTi\\T[xAy@h@Ib@JNJTf@FLTr@EXEDGBSDWIa@QmBq@mAi@eJaEy@o@m@w@q@yBIYRIbBq@bDsApA{@bAmAz@iB\\aBJ{AFqGB}@Bi@UAK?c@CJwE@g@"
+    end
+
     it 'should correctly give distances as a string for a bad reply' do
       @sad_path.distance_as_string.should == nil
     end
@@ -85,7 +89,6 @@ describe GoogleMapDirections do
     end
     it 'should correctly give the address of the origin for a bad reply' do
       @sad_path.destination_address.should == nil
-
     end 
     it 'should correctly give the duration of the trip as a string for a bad reply' do 
       @sad_path.duration_as_string.should == nil
@@ -93,5 +96,8 @@ describe GoogleMapDirections do
     it 'should correctly give the duration of the trip in minutes for a bad reply' do 
       @sad_path.duration_in_seconds.should == nil
     end    
+    it 'should correctly give the polyline for a bad reply' do
+      @sad_path.polyline.should == nil
+    end
   end
 end

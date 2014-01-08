@@ -25,7 +25,11 @@ module GoogleMapDirections
 
     def status
       return @json["status"]      
-    end 
+    end
+
+    def polyline
+      return @json["routes"][0]["overview_polyline"]["points"] unless !status_check
+    end
 
     def distance_as_string
       return @legs["distance"]["text"] unless !status_check
