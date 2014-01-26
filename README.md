@@ -76,6 +76,8 @@ The steps of the route can be pulled from the step method
 ```
 
 Let me know of any bugs/additional features wanted.
+
+NOTE: If the input addresses has brackets, you might have issues with parsing the address. Consider using gsub(/\(.*?\)/, '') to remove the brackets and the things inside them.
 ## Contributing
 
 1. Fork it
